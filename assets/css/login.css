@@ -1,0 +1,184 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  
+}
+
+
+body {
+  background: linear-gradient(45deg, rgba(245, 239, 175, 0.646), rgba(241, 173, 173, 0.589));
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  overflow: hidden;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.card {
+  display: flex;
+  border-radius: 8px;
+  box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.36);
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: calc(100% - 400px);
+  left: -80px;
+  z-index: -1;
+  background: rgba(225, 210, 141, 0.33);
+  border-radius: 50%;
+  width: 500px;
+  height: 500px;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -16px;
+  z-index: -1;
+  background: rgba(225, 210, 141, 0.33);
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+.card .container-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 2rem;
+  color: #222121c6;
+  background: linear-gradient(180deg, rgb(137, 229, 207), rgb(105, 170, 105));
+  padding-left: 2rem;
+  padding-right: 3rem;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.card .container-label span {
+  background-color: #222121c6;
+  margin-top: 2px;
+  height: 3px;
+  width: 48px;
+}
+.card .container-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+}
+.card .container-icon .circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background: linear-gradient(180deg, rgba(143, 145, 143, 0.574), rgba(105, 170, 105, 0.516));
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+}
+.card .container-icon .circle i {
+  color: #181818f7;
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+.card .container-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #181818f7;
+  background: #eae8e8;
+  padding: 5rem;
+  width: 450px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.card .container-form label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
+.card .container-form input {
+  color: rgba(91, 72, 72, 0.898);
+  background-color: transparent;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid rgba(105, 170, 105, 0.574);
+  width: 100%;
+}
+.card .container-form input:focus {
+  border-color: #ba2c2c86;
+  outline: 0;
+}
+.card .container-form input::placeholder {
+  color: rgb(48, 68, 48);
+}
+.card .container-form #usuario {
+  margin-bottom: 1.75rem;
+}
+.card .container-form .container-input {
+  width: 100%;
+}
+.card .container-form .container-input i {
+  float: right;
+  position: relative;
+  margin-top: -24px;
+  margin-right: 4px;
+  cursor: pointer;
+}
+.card .container-form .change-password {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgb(105, 170, 105);
+  margin-top: 0.75rem;
+}
+.card .container-form .change-password a {
+  color: #1717179b;
+}
+.card .container-form .boton {
+  color: #1717179b;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(105, 170, 105, 0.574), rgba(105, 170, 105, 0.516));
+  padding: 12px 16px;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  .card {
+    flex-direction: column;
+    width: 100%;
+  }
+  .card::before {
+    display: none;
+  }
+  .card::after {
+    display: none;
+  }
+  .card .container-label {
+    padding: 3rem 2rem;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0;
+  }
+  .card .container-icon {
+    display: none;
+  }
+  .card .container-form form {
+    padding: 3rem 2rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 8px;
+    width: auto;
+  }
+}
