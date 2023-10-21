@@ -101,17 +101,45 @@ class horario_docente extends datos
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
+        
         try {
 
-
+        
 
 
 
             $estado = 1;
 
 
+            $r = $co->prepare("SELECT clase_inicia, clase_termina, dia, id_ano_seccion, estado 
+            FROM horario_docente 
+            WHERE estado = 1 
+            GROUP by dia;");
 
+           
+
+
+            while ($row = mysqli_fetch_array($r)) {
+                $dia = $row["dia"];
+                $clase_inicia = $row["clase_inicia"];
+                $clase_termina = $row["clase_termina"];
+                $id_ano_seccion = $row["id_ano_seccion"];
+
+               
+                $r->execute();
+                // Verificar si hay horas duplicadas
+                $duplicate = false;
+                foreach ($r2 as $row) {
+                  if ($row["dia"] == $dia && $row["clase_inicio"] == $clase_inicia && $row["clase_termina"] == $clase_termina && $id_ano_seccion = $row["id_ano_seccion"]) {
+                    $duplicate = true;
+                    break;
+                    $r->execute();
+                  }
+                }
+              
+                if ($duplicate) {
+                  return "Registro duplicado";
+                } else {
 
 
 
@@ -210,10 +238,15 @@ class horario_docente extends datos
             $this->bitacora("se registro un horario", "horario_docente", $this->nivel);
 
             return "Registro incluido";
+                }
+            }
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
+
+    
+    
 
     //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
 
@@ -362,7 +395,7 @@ class horario_docente extends datos
                 $respuesta = $respuesta . "<th>" . $r['fin'] . "</th>";
                 $respuesta = $respuesta . '<th>';
                 if (in_array("modificar horario_docente", $nivel1)) {
-                    # code...
+                  
 
 
                     $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['id'] . '`)">
@@ -377,7 +410,7 @@ class horario_docente extends datos
                 $respuesta = $respuesta . '</th>';
                 $respuesta = $respuesta . '</tr>';
             }
-
+            
 
             return $respuesta;
         } catch (Exception $e) {
@@ -628,7 +661,43 @@ class horario_docente extends datos
     //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
 
+    private function existe_clase($clase_inicia,$clase_termina,$ano,$dia)
+    {
 
+        $co = $this->conecta();
+
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+        try {
+
+
+            $resultado = $co->prepare("SELECT * FROM horario_docente 
+
+            WHERE clase_inicia = :clase_inicia,
+            and clase_termina = :clase_termina,
+            and dia = :dia
+            and id_ano_seccion = :id_ano_seccion;");
+
+            $resultado->bindParam(':clase_inicia', $clase_inicia);
+            $resultado->bindParam(':clase_termina', $clase_termina);
+            $resultado->bindParam(':dia', $dia);
+            $resultado->bindParam(':id_ano_seccion', $ano);
+
+            $resultado->execute();
+            $fila = $resultado->fetchAll(PDO::FETCH_BOTH);
+            if ($fila) {
+
+                return true;
+            } else {
+
+                return false;
+            }
+        } catch (Exception $e) {
+
+            return false;
+        }
+    }
 
 
 
